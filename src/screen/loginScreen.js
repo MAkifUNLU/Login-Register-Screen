@@ -1,25 +1,58 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, TextInput, TouchableOpacity } from 'react-native';
-import { NavigationEvents } from 'react-navigation';
+//import { NavigationEvents } from 'react-navigation';
 
-const loginScreen = ({navigation}) => {
-    
-   console.log(navigation)
-    return ( 
+const loginScreen = ({ navigation }) => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    //const [disabled, setDisabled] = useState(true)
+    const [errorMessage, setErrorMessage] = useState(null)
+
+    useEffect(() => {
+        if(password.length < 6) {
+            setErrorMessage("Parola en az 6 hane olmalı !!!")
+        } else {
+            setErrorMessage(null)
+        }
+    }, [errorMessage, password]) 
+
+    // const formValidation = () => {
+    //     if (password === "") {
+    //       setNameError('Name cant be blank!')
+    //       return true
+    //     } else {
+    //       setNameError(null)
+    //       return false
+    //     }
+    //   }
+    return (
         <View>
             <Text style={styles.text}>
                 Giriş Yap
             </Text>
-            <TextInput placeholder="Email" style={styles.textInput}  marginTop={15} title="email"/>
-            <TextInput placeholder="Parola" style={styles.textInput} marginTop={15} title="şifre"/>
-            {/* <Text>{message}</Text> */}
-            <Button style={styles.button} title="Giriş Yap" onPress={navigation.navigate}/>
-            <Button style={styles.button} title="Kayıt Ol" onPress={navigation.navigate}/>
+            <TextInput
+                placeholder="Email"
+                keyboardType="email-address"
+                style={styles.textInput}
+                value={email}
+                onChangeText={(text) => { setEmail({ email: text }) }}
+            />
+            <TextInput
+                placeholder="Parola"
+                // minLength={5}
+                style={styles.textInput}
+                value={password}
+                onChangeText={setPassword}
+            />
+            {
+                errorMessage 
+                    ? (<Text style={styles.errorMessage}>{errorMessage}</Text>)
+                    : (<Button style={styles.button} title="GİR" onPress={() => navigation.navigate('Profile')} />)
+            }
+            <Button style={styles.button} title="Kayıt Ol" onPress={() => navigation.navigate('Register')} />
         </View>
-    ); 
-}; 
-
-//const message = "@ ve en az iki nokta içermeli"
+    );
+};
 
 const styles = StyleSheet.create({
     textInput: {
@@ -29,20 +62,31 @@ const styles = StyleSheet.create({
         marginHorizontal: 85,
         borderRadius: 25,
         textAlign: 'center',
+        marginTop: 15
     },
     text: {
         textAlign: 'center',
         fontSize: 50,
         justifyContent: "flex-start",
-        margin: 80
+        margin: 30
     },
     button: {
         width: 2,
-        margin: 50,  
+        margin: 50,
+    },
+    errorMessage: {
+        fontSize: 16,
+        color: 'red',
+        marginLeft: 15,
+        marginTop: 15,
+        textAlign: 'center'
     }
 });
 
 export default loginScreen;
+
+
+//console.log(navigation)
 
 // "alignContent",
 // "alignItems",

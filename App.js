@@ -2,10 +2,12 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import loginScreen from './src/screen/loginScreen';
 import registerScreen from './src/screen/registerScreen';
+import profileScreen from './src/screen/profileScreen';
 
 const navigator = createStackNavigator({
   Login: loginScreen,
-  Register: registerScreen
+  Register: registerScreen,
+  Profile: profileScreen
 }, {   
   initialRouteName: 'Login',
   defaultNavigationOptions: {
