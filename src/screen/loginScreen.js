@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, TextInput, TouchableOpacity } from 'react-native';
-//import { NavigationEvents } from 'react-navigation';
+import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
 
 const loginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
@@ -39,7 +38,6 @@ const loginScreen = ({ navigation }) => {
             />
             <TextInput
                 placeholder="Parola"
-                // minLength={5}
                 style={styles.textInput}
                 value={password}
                 onChangeText={setPassword}
@@ -71,8 +69,11 @@ const styles = StyleSheet.create({
         margin: 30
     },
     button: {
-        width: 2,
+        width: 200,
         margin: 50,
+        borderRadius: 10,
+        paddingVertical: 15,
+        paddingHorizontal: 10
     },
     errorMessage: {
         fontSize: 16,

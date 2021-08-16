@@ -18,7 +18,7 @@ const registerScreen = ({navigation}) => {
     }, [name,errorMessage])
 
     return (
-        <SafeAreaView>
+        <SafeAreaView> 
             <Text style={styles.text}>
                 Kayıt Ol
             </Text>
