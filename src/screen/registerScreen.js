@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button, TextInput, SafeAreaView } from 'react-native';
-import { NavigationEvents } from 'react-navigation';
+import { Text, StyleSheet, View, TextInput, SafeAreaView, TouchableOpacity } from 'react-native';
 
 const registerScreen = ({navigation}) => {
     const [name, setName] = useState("");
@@ -9,28 +8,53 @@ const registerScreen = ({navigation}) => {
     const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
-        //console.warn("Çalıştı")
-        if(name.length < 5 ) {
-            setErrorMessage("İsim en az 5 hane olmalı !!!")
+        if(name.length < 5 || name.includes(" ") || password.length < 6 || !email.includes("."||"@")) {
+            setErrorMessage( "1-)İsim boşluk içermemeli en az 5 hane olmalı \n 2-) Parola en az 6 hane olmalı \n 3-)Email formatlı olmalı ")
         } else {
             setErrorMessage(null)
         }
-    }, [name,errorMessage])
+    }, [name, password, email])
 
     return (
         <SafeAreaView> 
             <Text style={styles.text}>
                 Kayıt Ol
             </Text>
-            <TextInput placeholder="Ad Soyad" style={styles.textInput} value={name} onChangeText={setName}/>
-            <TextInput placeholder="Email" style={styles.textInput} value={email} onChangeText={setEmail}/>
-            <TextInput placeholder="Parola" style={styles.textInput} value={password} onChangeText={setPassword}/>
+            <TextInput 
+                placeholder="Ad Soyad" 
+                style={styles.textInput} 
+                value={name} 
+                onChangeText={text => setName(text)}
+            />
+            <TextInput 
+                placeholder="Email" 
+                style={styles.textInput} 
+                value={email} 
+                onChangeText={text => setEmail(text)}
+            />
+            <TextInput 
+                placeholder="Parola" 
+                style={styles.textInput} 
+                value={password}
+                secureTextEntry={true}
+                onChangeText={text => setPassword(text)}
+            />
             {
                 errorMessage
                  ? (<Text style={styles.errorMessage}>{errorMessage}</Text>)
-                 : (<Button style={styles.button} title="KAYDOL" onPress={navigation.navigate}/>)
+                 : ( <TouchableOpacity onPress={() => navigation.navigate} >
+                        <View style={styles.button} >
+                            <Text style={styles.buttonText} >KAYDOL</Text>
+                        </View>
+                     </TouchableOpacity>
+                    )
             }
-            <Button title="Giriş Yap" onPress={() => navigation.navigate('Login')} />
+            <TouchableOpacity onPress={() => navigation.navigate('Login')} >
+                <View style={styles.button} >
+                    <Text style={styles.buttonText} >Giriş Yap</Text>
+                </View>
+            </TouchableOpacity>
+
         </SafeAreaView>
     );
 };
@@ -59,25 +83,27 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     button: {
-     color: 'orange'   
+        display: 'flex',
+        height: 40,
+        width: 250,
+        marginHorizontal: 85,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 15,
+
+        backgroundColor: 'turquoise',
+        shadowOpacity: 0.4,
+        shadowOffset: { height: 10, width: 0 },
+        shadowRadius: 20,
+    },
+    buttonText: {
+        color: '#ffffff',
+        textTransform: 'uppercase',
+        textAlign: 'center',
     }
 });
 
 export default registerScreen;
 
-  // useEffect(() => {
-    //     console.warn("Çalıştı")
-    //     if(chackName) {
-    //         errorMessage;
-    //     }
-    // }, [name,errorMessage])
-
-    // const chackName = () => {
-    //     if(name === null || name.length < 5) {
-    //         setErrorMessage('en az 5 hane olmalı')
-    //         return true;
-    //     } else {
-    //         setErrorMessage(null)
-    //         return false;
-    //     }
-    // }
+// <TouchableOpacity style={styles.button} title="KAYDOL" onPress={navigation.navigate}/>

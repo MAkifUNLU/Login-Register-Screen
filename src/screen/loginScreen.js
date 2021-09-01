@@ -1,29 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
 const loginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    //const [disabled, setDisabled] = useState(true)
     const [errorMessage, setErrorMessage] = useState(null)
 
     useEffect(() => {
-        if(password.length < 6) {
-            setErrorMessage("Parola en az 6 hane olmalı !!!")
+        if (password.length < 6 || !email.includes("." || "@")) {
+            setErrorMessage("1-)Email formatlı olmalı \n 2-) Parola en az 6 hane olmalı !!!")
         } else {
             setErrorMessage(null)
         }
-    }, [errorMessage, password]) 
+    }, [password, email])
 
-    // const formValidation = () => {
-    //     if (password === "") {
-    //       setNameError('Name cant be blank!')
-    //       return true
-    //     } else {
-    //       setNameError(null)
-    //       return false
-    //     }
-    //   }
     return (
         <View>
             <Text style={styles.text}>
@@ -34,20 +24,31 @@ const loginScreen = ({ navigation }) => {
                 keyboardType="email-address"
                 style={styles.textInput}
                 value={email}
-                onChangeText={(text) => { setEmail({ email: text }) }}
+                onChangeText={text => setEmail(text)}
             />
             <TextInput
                 placeholder="Parola"
                 style={styles.textInput}
                 value={password}
-                onChangeText={setPassword}
+                secureTextEntry={true}
+                onChangeText={text => setPassword(text)}
             />
             {
-                errorMessage 
+                errorMessage
                     ? (<Text style={styles.errorMessage}>{errorMessage}</Text>)
-                    : (<Button style={styles.button} title="GİR" onPress={() => navigation.navigate('Profile')} />)
+                    : ( <TouchableOpacity onPress={() => navigation.navigate('Profile')} >
+                            <View style={styles.button} >
+                                <Text style={styles.buttonText} >GİR</Text>
+                            </View>
+                        </TouchableOpacity>
+                      )
             }
-            <Button style={styles.button} title="Kayıt Ol" onPress={() => navigation.navigate('Register')} />
+            <TouchableOpacity onPress={() => navigation.navigate('Register')} >
+                <View style={styles.button} >
+                    <Text style={styles.buttonText} >Kayıt Ol</Text>
+                </View>
+            </TouchableOpacity>
+
         </View>
     );
 };
@@ -69,11 +70,24 @@ const styles = StyleSheet.create({
         margin: 30
     },
     button: {
-        width: 200,
-        margin: 50,
-        borderRadius: 10,
-        paddingVertical: 15,
-        paddingHorizontal: 10
+        display: 'flex',
+        height: 40,
+        width: 250,
+        marginHorizontal: 85,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 15,
+
+        backgroundColor: 'turquoise',
+        shadowOpacity: 0.4,
+        shadowOffset: { height: 10, width: 0 },
+        shadowRadius: 20,
+    },
+    buttonText: {
+        color: '#ffffff',
+        textTransform: 'uppercase',
+        textAlign: 'center',
     },
     errorMessage: {
         fontSize: 16,
@@ -86,7 +100,7 @@ const styles = StyleSheet.create({
 
 export default loginScreen;
 
-
+// <TouchableOpacity style={styles.button} title="Kayıt Ol" onPress={() => navigation.navigate('Register')} />
 //console.log(navigation)
 
 // "alignContent",

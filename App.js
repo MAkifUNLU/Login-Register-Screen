@@ -3,6 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import loginScreen from './src/screen/loginScreen';
 import registerScreen from './src/screen/registerScreen';
 import profileScreen from './src/screen/profileScreen';
+import { NavigationContainer } from '@react-navigation/native';
 
 const navigator = createStackNavigator({
   Login: loginScreen,
@@ -18,33 +19,12 @@ const navigator = createStackNavigator({
 export default createAppContainer(navigator);
 
 
+// import * as React from 'react';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createNativeStackNavigator }
 
 
 
 
 
 
-
-
-
-// import { StatusBar } from 'expo-status-bar';
-// import React from 'react';
-// import { StyleSheet, Text, View } from 'react-native';
-
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Open up App.js to start working on your app!</Text>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
