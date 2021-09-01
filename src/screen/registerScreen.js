@@ -105,5 +105,3 @@ const styles = StyleSheet.create({
 });
 
 export default registerScreen;
-
-// <TouchableOpacity style={styles.button} title="KAYDOL" onPress={navigation.navigate}/>

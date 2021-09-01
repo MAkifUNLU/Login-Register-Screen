@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
 
 export default loginScreen;
 
-// <TouchableOpacity style={styles.button} title="Kayıt Ol" onPress={() => navigation.navigate('Register')} />
 //console.log(navigation)
 
 // "alignContent",
